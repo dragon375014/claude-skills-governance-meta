@@ -33,6 +33,10 @@ Then edit `ALIAS_MAP` and `SCAN_SRC_DIR` in your copy and uncomment one or two o
 
 ---
 
+**繁體中文讀者**：請看 [getting-started.zh-TW.md](./getting-started.zh-TW.md) — 含「症狀 → 檔案對照表」、名詞翻譯、給程式小白的最低門檻試用流程。
+
+---
+
 ## Contents
 
 ### Concept docs
@@ -105,6 +109,14 @@ Best for: building your own project-specific governance layer with this as the s
 
 These may move in once a second non-toy project has validated them. Until then, they live in the source codebase they came from.
 
+## Related repos (planned)
+
+A sibling repo focused on a different vertical is on the roadmap:
+
+- `claude-skills-goal-design` — designing precise `/goal` prompts with rubric + five-element framework, plus session-handoff patterns for long-running AI collaboration
+
+The two repos are kept separate on purpose: governance and meta-prompt-design are different verticals, and one focused repo is easier to navigate than one mixed bag.
+
 ---
 
 ## Stability
@@ -124,3 +136,9 @@ You can use, modify, and redistribute everything here, commercially or otherwise
 ## Contributing
 
 The PR / issue policy is deliberately restrictive. See [CONTRIBUTING.md](./CONTRIBUTING.md). Short version: typos and obvious bug fixes accepted; feature requests and design discussions belong in your fork.
+
+---
+
+If anything in this repo saved you a debugging session, a ko-fi is appreciated but not expected. The patterns here are MIT and free to use unconditionally.
+
+[![ko-fi](https://ko-fi.com/img/githubbutton_sm.svg)](https://ko-fi.com/Z8C420A0VI)
