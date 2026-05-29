@@ -169,13 +169,20 @@ The skill layer (`scaffold/`) brings in two patterns the first release deliberat
 
 These may move in once a second non-toy project has validated them. Until then, they live in the source codebase they came from.
 
-## Related repos (planned)
+## Companion repo — task shaping (姐妹 repo — 任務塑形)
 
-A sibling repo focused on a different vertical is on the roadmap:
+This repo guards **how a thing is built** (structure). Its companion shapes **what to do** (the task spec):
 
-- `claude-skills-goal-design` — designing precise `/goal` prompts with rubric + five-element framework, plus session-handoff patterns for long-running AI collaboration
+> ### [`goal-workflow-designer`](https://github.com/dragon375014/goal-workflow-designer)
+> Two task-shaping skills: **`/goal`** (depth — one agent + a rubric, iterate to a quality bar) and **`workflow-shaper`** (breadth — shape a task into a runnable Dynamic Workflow, with a worth-it gate). A design coach for the prompt/spec, not the engine.
 
-The two repos are kept separate on purpose: governance and meta-prompt-design are different verticals, and one focused repo is easier to navigate than one mixed bag.
+**They combine cleanly:**
+
+- This repo's `architecture-completeness-guardian` (the L0 gate) can **dispatch** that repo's `workflow-shaper` when it classifies a job as "many independent units."
+- A `/goal` or workflow designed there is **executed under** this repo's trace-lock + governance guard — so a multi-unit change stays SSOT-locked instead of drifting.
+- Mental model: **that repo = the brief; this repo = the guardrails.** Use that one for sharper task specs; add this one when your project is big enough to need structural governance (the fitness check above tells you when).
+
+Kept as separate repos on purpose — governance and task-shaping are different verticals, and one focused repo is easier to navigate than a mixed bag. Each stands alone; install both for full coverage.
 
 ---
 
