@@ -30,6 +30,8 @@
 - 你寫 commit message 時想過「我下次會不會又犯這個錯」
 - 你有別的事情要分心（咖啡店、家庭、其他專案），不能 24/7 盯著 code
 
+> **想要更精確的判斷？** 上面是粗略版。把這個 repo 丟給你專案裡的 AI（Claude Code 等），叫它讀 [`adoption-fitness-check.md`](./adoption-fitness-check.md) —— 它會**實際掃你的專案**，逐檔告訴你「現在該裝 ✅ / 太早裝會浪費 ⚠️ / 你這專案根本用不到 🚫」，還會吐一份採用步驟 handoff。**重點是別貪多**：裝了用不到的東西只會變成死設定 + 讓人誤以為有保護。
+
 ---
 
 ## 症狀對照表（最重要！）
@@ -85,9 +87,18 @@ cp ~/code/governance-meta/governance-guard-template.mjs your-project/scripts/gov
 
 # 4. 跑跑看
 cd your-project && node scripts/governance-guard.mjs
+
+# 5. 讓它「自動觸發」（最多人忘記這步）—— 接進 build / commit
+npm pkg set scripts.guard="node scripts/governance-guard.mjs"
+npm pkg set scripts.prebuild="npm run guard"     # 每次 build 前自動跑
+#   或接 .husky/pre-commit，每次 commit 前自動跑
 ```
 
 第一次跑出來通常會看到一堆「import-target-untracked」訊息 —— 那些都是你忘了 `git add` 的本地檔案，會在 CI 爆炸。**這個是 free 的價值**。
+
+> ⚠️ **複製 ≠ 觸發**。第 4 步只是手動跑一次；第 5 步把它接進 `prebuild` / pre-commit hook，它才會**每次自動觸發**。只 copy 不接 hook = 那支檔案永遠不會自己跑。
+>
+> （另外：這個 repo 現在發的全是「複製貼上型」的文件 + `.mjs`，**沒有任何 Claude skill**，所以不存在「skill 觸發不了」的問題。如果未來這個 repo 真的開始發 skill，它一定會放在第一層 `.claude/skills/<name>/SKILL.md` —— Claude 的 skill registry 只認第一層、不會掃 `.claude/skills/<分類>/<name>/` 子目錄，放錯一層就會從清單消失。細節見 [`adoption-fitness-check.md`](./adoption-fitness-check.md) §4。）
 
 ### 路徑 2：你還沒踩過坑，先看哪些坑長什麼樣
 

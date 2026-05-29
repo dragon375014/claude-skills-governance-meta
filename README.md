@@ -33,6 +33,17 @@ Then edit `ALIAS_MAP` and `SCAN_SRC_DIR` in your copy and uncomment one or two o
 
 ---
 
+## Before you adopt: run the fitness check
+
+More is not better. Before copying anything, run [adoption-fitness-check.md](./adoption-fitness-check.md) — an AI-runnable assessment that reads *your* project and tells you which parts fit today, which are premature, and which to skip. It exists so you don't install a trace-lock methodology for a 40-file prototype.
+
+```
+Read https://raw.githubusercontent.com/dragon375014/claude-skills-governance-meta/main/adoption-fitness-check.md
+Then assess THIS project against it and output the report + adoption handoff. Don't copy files yet.
+```
+
+---
+
 **繁體中文讀者**：請看 [getting-started.zh-TW.md](./getting-started.zh-TW.md) — 含「症狀 → 檔案對照表」、名詞翻譯、給程式小白的最低門檻試用流程。
 
 ---
@@ -92,6 +103,7 @@ Best for: building your own project-specific governance layer with this as the s
 
 ## When to use which doc
 
+- Not sure what (if anything) to adopt → run [adoption-fitness-check.md](./adoption-fitness-check.md) first; it scores your project and emits an adoption handoff
 - New project, need a CI governance scaffold from zero → start with [defensive-vs-offensive-governance.md](./defensive-vs-offensive-governance.md), then copy [governance-guard-template.mjs](./governance-guard-template.mjs)
 - Diagnosing a specific bug → walk the decision tree at the top of [breakpoint-taxonomy.md](./breakpoint-taxonomy.md)
 - Refactoring scattered logic into one place → use [playbooks/ssot-consolidation.md](./playbooks/ssot-consolidation.md)
