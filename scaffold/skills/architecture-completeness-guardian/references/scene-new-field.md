@@ -24,7 +24,7 @@ Signature: **cross-layer field propagation** is the core risk.
 |---|---|
 | `<your cross-layer contract audit skill>` (5-step cross-layer audit) | "a new field most often gets written but never read. This scans write → middleware → render to confirm all three sync up" |
 | `<your default-value SSOT skill>` | "if the field has a default, it's most often crammed in too early, defeating a later guard; derived fields must be reactive; multi-alias strings must use a canonical label map" |
-| migration GRANT check (this repo: [`check-migration-grants.mjs`](../../../templates/check-migration-grants.mjs)) | "if your migration adds a new table, it needs the GRANT lines, or anon gets 403 after the policy cutover" |
+| migration GRANT check (this repo: [`check-migration-grants.mjs`](../../../../templates/check-migration-grants.mjs)) | "if your migration adds a new table, it needs the GRANT lines, or anon gets 403 after the policy cutover" |
 
 ### Pull depending on layer touched
 
@@ -32,7 +32,7 @@ Signature: **cross-layer field propagation** is the core risk.
 |---|---|---|
 | field is **derived** (value = f(other fields)) | reactive-derived check | "a derived field must be reactive, not computed once at create time" |
 | field is in an **RPC return shape** | `<your rpc-shape audit skill>` | "RPC return changed but the normalizer whitelist didn't → the frontend always gets null" |
-| **PG function signature change** (adding a default-NULL param counts) | `DROP FUNCTION` first (this repo: [`pg-function-overload-zombie`](../../../anti-patterns/pg-function-overload-zombie.md)) | "before changing a PG function overload, DROP the old signature, or you get a 400 'not unique'" |
+| **PG function signature change** (adding a default-NULL param counts) | `DROP FUNCTION` first (this repo: [`pg-function-overload-zombie`](../../../../anti-patterns/pg-function-overload-zombie.md)) | "before changing a PG function overload, DROP the old signature, or you get a 400 'not unique'" |
 | field is a **multi-alias string** (canonical / alias) | canonical label map | "cross-layer strings need a canonical mapping table; no self-rolled label maps" |
 
 ---

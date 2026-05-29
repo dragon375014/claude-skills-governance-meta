@@ -2,7 +2,7 @@
 
 > Read in by SKILL.md for the "S5 modify existing trace" scenario.
 >
-> **TEMPLATE**: `T-NNN` is a placeholder trace ID; `inventoryUnit.js` / `normalizeEntity.js` are generic file-name examples. Replace the registry path with your project's (the repo ships a [registry template](../../../templates/data-source-registry-template.md)).
+> **TEMPLATE**: `T-NNN` is a placeholder trace ID; `inventoryUnit.js` / `normalizeEntity.js` are generic file-name examples. Replace the registry path with your project's (the repo ships a [registry template](../../../../templates/data-source-registry-template.md)).
 
 ---
 
@@ -22,7 +22,7 @@ Signature: **the trace-lock enforced path** — must run the `trace-lock-modify`
 
 | Always pull | Why (plain) |
 |---|---|
-| [`trace-lock-modify`](../trace-lock-modify/SKILL.md) (registry grep + list chain + pin via trace test) | "you can't edit trace nodes from memory — first grep the registry to find which trace this file is on, list the full chain, pin current behavior with the trace test, re-run after editing, then update the registry's Last-edited" |
+| [`trace-lock-modify`](../../trace-lock-modify/SKILL.md) (registry grep + list chain + pin via trace test) | "you can't edit trace nodes from memory — first grep the registry to find which trace this file is on, list the full chain, pin current behavior with the trace test, re-run after editing, then update the registry's Last-edited" |
 
 ### Pull depending on layer touched
 
@@ -37,7 +37,7 @@ Signature: **the trace-lock enforced path** — must run the `trace-lock-modify`
 
 ## trace-lock-modify 5-step flow (mandatory)
 
-> Full flow lives in [`../trace-lock-modify/SKILL.md`](../trace-lock-modify/SKILL.md); summarized here.
+> Full flow lives in [`../../trace-lock-modify/SKILL.md`](../../trace-lock-modify/SKILL.md); summarized here.
 
 ### Step 1: confirm which trace the file belongs to
 ```

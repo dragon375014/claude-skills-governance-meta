@@ -34,7 +34,7 @@ Signature: UI + DB write + state flow + multi-entry-point considerations all in 
 | feature touches **stock / balance** | `<your double-deduction audit skill>` | "stock-touching features tend to get deducted twice by two paths" |
 | feature is an **admin CRUD page** | `<your admin-CRUD audit skill>` | "admin pages often pass tests but fail on a real manual save" |
 | feature is a **workstation operation** page | `<your operator-capability gate skill>` | "workstation pages can't call the DB directly — they must go through a gated RPC" |
-| feature **touches files on a trace node** | [`trace-lock-modify`](../trace-lock-modify/SKILL.md) | "the file you're editing is on trace T-NNN — list the chain + pin current behavior with a trace test first" |
+| feature **touches files on a trace node** | [`trace-lock-modify`](../../trace-lock-modify/SKILL.md) | "the file you're editing is on trace T-NNN — list the chain + pin current behavior with a trace test first" |
 
 ---
 

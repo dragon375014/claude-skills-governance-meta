@@ -98,7 +98,7 @@ npm pkg set scripts.prebuild="npm run guard"     # 每次 build 前自動跑
 
 > ⚠️ **複製 ≠ 觸發**。第 4 步只是手動跑一次；第 5 步把它接進 `prebuild` / pre-commit hook，它才會**每次自動觸發**。只 copy 不接 hook = 那支檔案永遠不會自己跑。
 >
-> （另外：這個 repo 現在發的全是「複製貼上型」的文件 + `.mjs`，**沒有任何 Claude skill**，所以不存在「skill 觸發不了」的問題。如果未來這個 repo 真的開始發 skill，它一定會放在第一層 `.claude/skills/<name>/SKILL.md` —— Claude 的 skill registry 只認第一層、不會掃 `.claude/skills/<分類>/<name>/` 子目錄，放錯一層就會從清單消失。細節見 [`adoption-fitness-check.md`](./adoption-fitness-check.md) §4。）
+> （這段講的是 `.mjs` 模板。這個 repo 現在**也**發 Claude skill 了（`scaffold/skills/` 的 architecture-completeness-guardian + trace-lock-modify）——那一層不是靠 hook、是靠 skill registry + 一條 CLAUDE.md 規則觸發。裝 skill 時務必放在第一層 `.claude/skills/<name>/SKILL.md`：Claude 的 registry 只認第一層、不掃 `.claude/skills/<分類>/<name>/` 子目錄，放錯一層 skill 就從清單消失。怎麼裝見 [`docs/onboarding-checklist.md`](./docs/onboarding-checklist.md)，放置規則細節見 [`adoption-fitness-check.md`](./adoption-fitness-check.md) §4。）
 
 ### 路徑 2：你還沒踩過坑，先看哪些坑長什麼樣
 

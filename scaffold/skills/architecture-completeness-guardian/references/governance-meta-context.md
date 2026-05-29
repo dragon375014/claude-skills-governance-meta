@@ -6,8 +6,8 @@
 > - designing a new governance skill and needing to place its L0/L1/L2 role
 
 > The conceptual versions of §1 and §2 live in the repo's concept docs:
-> [`../../concepts/governance-hierarchy.md`](../../concepts/governance-hierarchy.md) and
-> [`../../concepts/audit-first-vs-architecture-gate-boundary.md`](../../concepts/audit-first-vs-architecture-gate-boundary.md).
+> [`../../../concepts/governance-hierarchy.md`](../../../concepts/governance-hierarchy.md) and
+> [`../../../concepts/audit-first-vs-architecture-gate-boundary.md`](../../../concepts/audit-first-vs-architecture-gate-boundary.md).
 > This file keeps a condensed version + the real cases that taught the rules.
 
 ---
@@ -43,7 +43,7 @@
 
 ## 3. Real missed-trigger cases (vaccines / counter-examples / regression guards)
 
-> The full standalone write-ups live in [`../../../examples/case-studies/`](../../../examples/case-studies/). Condensed here so a future AI reading this skill learns "this sentence shape must trigger".
+> The full standalone write-ups live in [`../../../../examples/case-studies/`](../../../../examples/case-studies/). Condensed here so a future AI reading this skill learns "this sentence shape must trigger".
 
 ### Case — shared-component cleanup (R0 missed)
 
@@ -81,7 +81,7 @@
 > `trace-lock-modify` (registry note)
 > Why: your new low-stock-alert RPC is read-only and doesn't write stock, but it **reads** the upstream stock quantity — a downstream node of the `T-NNN` stock-availability trace. A new reader = a new trace surface; when the anchor changes later, this reader must be re-evaluated. For now, just a registry note (register the new RPC as a new reader of `T-NNN`), not the full 5-step audit.
 
-**Regression guard**: if the data source of a new feature / field / setting is downstream of a `T-NNN` trace, even read-only, dispatch `trace-lock-modify` for at least a registry note. Full discussion: [`../../concepts/trace-surface-spirit.md`](../../concepts/trace-surface-spirit.md).
+**Regression guard**: if the data source of a new feature / field / setting is downstream of a `T-NNN` trace, even read-only, dispatch `trace-lock-modify` for at least a registry note. Full discussion: [`../../../concepts/trace-surface-spirit.md`](../../../concepts/trace-surface-spirit.md).
 
 ### Case — trigger test result (same-session, ideal conditions)
 
@@ -91,4 +91,4 @@
 
 **Result**: ✅ passed. Part 1 correctly classified S1 (+R0/S4); Part 2 explicitly pulled `trace-lock-modify` with the read-only-reader reasoning; Part 3 flagged the frontend-overwrites-SSOT trap + an anon-perspective incident; Part 4 proposed registering the dashboard as a new trace reader.
 
-**Caveat (test-validity limit)**: this hit under ideal conditions (same session, just read the SKILL.md). The real thing to validate is **a fresh session relying on the hard-rule reminder + the description for auto-trigger** — see [`../../../docs/known-limitations.md`](../../../docs/known-limitations.md) on why auto-trigger of a skill from a clean session is not guaranteed and a CLAUDE.md hard rule is the backstop.
+**Caveat (test-validity limit)**: this hit under ideal conditions (same session, just read the SKILL.md). The real thing to validate is **a fresh session relying on the hard-rule reminder + the description for auto-trigger** — see [`../../../../docs/known-limitations.md`](../../../../docs/known-limitations.md) on why auto-trigger of a skill from a clean session is not guaranteed and a CLAUDE.md hard rule is the backstop.

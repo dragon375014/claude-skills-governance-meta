@@ -67,11 +67,12 @@ For each artifact: when to adopt now, when it's premature, when to skip. Tie eve
 | [`anti-patterns/spread-overwrites-ssot.md`](./anti-patterns/spread-overwrites-ssot.md) | `S7` true | — | backend renders everything, client never recomputes server fields |
 | [`anti-patterns/pg-function-overload-zombie.md`](./anti-patterns/pg-function-overload-zombie.md) | `S6` true | — | no Postgres functions at all |
 | [`playbooks/ssot-consolidation.md`](./playbooks/ssot-consolidation.md) | you actually have duplicated logic (usually `S1 ≥ 100`) | ⚠️ until duplication exists — don't pre-consolidate | — |
-| **(future) trace-lock methodology** | — | ⚠️ until `S1 ≥ 500` **and** `S11` true | toy / pre-launch project |
-| **(future) config-debt taxonomy** | — | ⚠️ until `S2 ≥ 12 months` **and** `S10` true | no config store |
+| [`scaffold/skills/architecture-completeness-guardian/`](./scaffold/skills/architecture-completeness-guardian/) | `S1 ≥ ~200` **and** you have ≥2 domain governance skills for it to dispatch to | ⚠️ until you have domain skills to route to (else it's a checklist with no teeth) | solo / toy where you hold the whole architecture in your head |
+| [`scaffold/skills/trace-lock-modify/`](./scaffold/skills/trace-lock-modify/) | `S1 ≥ 500` **and** `S11` true | ⚠️ until a real cross-layer chain exists | toy / pre-launch project |
+| **config-debt taxonomy** ([concept](./scaffold/concepts/config-debt-taxonomy.md) + [rule](./scaffold/claude-md-rule-templates/rule-30-config-debt.md)) | `S2 ≥ 12 months` **and** `S10` true | ⚠️ until the config store has grown past a handful of values | no config store |
 | **(future) data-contract propagation audit** | — | ⚠️ until `S9` true | no normalizer/contract layer |
 
-> The three "(future)" rows mirror the README's *What's intentionally missing*. They are listed here so the assessor can tell an adopter **"not yet, and here's the exact threshold that would change the answer"** instead of silently omitting them.
+> The trace-lock and config-debt rows used to be "(future)" — they now ship in `scaffold/`, but stay **gated**: adopt only when the listed signal threshold is met. The guardian skill is gated on a *different* axis — not size alone, but whether it has domain skills to dispatch to. Only data-contract propagation remains genuinely future. The point is unchanged: the assessor tells an adopter **"here's the exact threshold"** rather than silently omitting an artifact.
 
 ---
 
@@ -137,11 +138,9 @@ Adopt these (decided by adoption-fitness-check §3): <list of ✅ artifacts>
 - Commit, and confirm the hook fired.
 ```
 
-### ⚠️ Placement rule for skills (forward-looking)
+### ⚠️ Placement rule for skills
 
-This repo **currently ships copy-paste docs + `.mjs` templates only — there are no Claude skills in it**, so there is nothing to "auto-trigger" today; the templates fire because you wire them into a hook (step 3 above), not because of any skill registry.
-
-**If a future release of this repo ever ships an actual Claude skill**, it must be placed at the **first level**:
+This repo ships **both** copy-paste `.mjs` templates **and** Claude skills (`scaffold/skills/`). The templates fire because you wire them into a hook; the **skills** rely on the skill registry + a CLAUDE.md hard rule to trigger. If you adopt the skill layer (see [docs/onboarding-checklist.md](./docs/onboarding-checklist.md)), this placement rule is **mandatory, not forward-looking**:
 
 ```
 .claude/skills/<name>/SKILL.md        ✅ correct — registry sees it, auto-triggers

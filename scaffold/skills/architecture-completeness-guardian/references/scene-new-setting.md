@@ -2,7 +2,7 @@
 
 > Read in by SKILL.md for the "S4 new setting" scenario.
 >
-> **TEMPLATE**: `system_config` / `tier_config` are example config-store table names — replace with your project's. The config-debt 4-class taxonomy is detailed in [`../../concepts/config-debt-taxonomy.md`](../../concepts/config-debt-taxonomy.md).
+> **TEMPLATE**: `system_config` / `tier_config` are example config-store table names — replace with your project's. The config-debt 4-class taxonomy is detailed in [`../../../concepts/config-debt-taxonomy.md`](../../../concepts/config-debt-taxonomy.md).
 
 ---
 
@@ -25,7 +25,7 @@ Signature: **anti-sprawl is the core** (no hardcoded business values in the fron
 | placement-guideline decision tree + the "setting placement rule" | "decide where this setting goes — with its module or in system settings" |
 | hardcoding red-line check | "hardcoded business values in the frontend are forbidden; so is cramming a module setting into a Settings tab" |
 | orphan-config defense | "a new config row must ship a UI write path in the same PR, or in six months no one remembers it's adjustable" |
-| config-debt 4-class self-check | "avoid the new setting becoming orphan / shotgun / tribal-knowledge / god-row debt" → [`config-debt-taxonomy.md`](../../concepts/config-debt-taxonomy.md) |
+| config-debt 4-class self-check | "avoid the new setting becoming orphan / shotgun / tribal-knowledge / god-row debt" → [`config-debt-taxonomy.md`](../../../concepts/config-debt-taxonomy.md) |
 
 ### Pull depending on layer touched
 
@@ -111,7 +111,7 @@ grep -rn "{setting_key}" {admin pages dir}
 | God-row | one jsonb holds all settings | open a new row for a new domain, don't extend the god-row |
 | **Secrets in DB** (P0) | plaintext keys stored in jsonb | a defensive blocker |
 
-Full taxonomy → [`../../concepts/config-debt-taxonomy.md`](../../concepts/config-debt-taxonomy.md).
+Full taxonomy → [`../../../concepts/config-debt-taxonomy.md`](../../../concepts/config-debt-taxonomy.md).
 
 ---
 

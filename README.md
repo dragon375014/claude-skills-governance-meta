@@ -48,6 +48,32 @@ Then assess THIS project against it and output the report + adoption handoff. Do
 
 ---
 
+## Two layers: templates and skills
+
+This repo ships governance at two levels. Adopt either or both.
+
+- **Templates** (`.mjs`) — defensive linters you wire into a build / commit hook. They *enforce* (a CI `exit 1`). Start here; they work at any project size.
+- **Skills** (`scaffold/skills/`) — agent skills you copy into `.claude/skills/` so your coding agent runs an architecture-completeness check *before* a feature is built. They *nudge* (no enforcement). They need a project big enough to have domain skills to route to — the fitness check draws that line.
+
+### Install the guardian skill (skill layer)
+
+After the fitness check says the skill layer fits, paste this into your project's agent session (from inside your project):
+
+```
+Read https://raw.githubusercontent.com/dragon375014/claude-skills-governance-meta/main/docs/onboarding-checklist.md
+
+Then install the architecture-completeness-guardian skill into THIS project by following it:
+1. Copy scaffold/skills/architecture-completeness-guardian (and trace-lock-modify if I have cross-layer chains) into .claude/skills/ — FLAT, one folder per skill, never a category subfolder.
+2. Inspect my codebase and fill the SKILL.md dispatch table with MY real governance skills; replace the scene-*.md code-path placeholders with mine. Stop and ask me only where a choice is genuinely project-specific.
+3. Add the Rule 33 architecture-gate hard rule to my CLAUDE.md (renumbered to fit).
+4. Verify: in a fresh session, declare a fake feature and confirm the 4-part report fires.
+Show me a diff of every file before writing, and a summary of what you customized vs. left as TODO.
+```
+
+The agent reads [docs/onboarding-checklist.md](./docs/onboarding-checklist.md) and works the 5 steps against your real repo, stopping to ask only at project-specific cells (which skills, which sidebar groups). What it does **not** guarantee — and why a CLAUDE.md hard rule, not registry luck, is what makes the trigger dependable — is in [docs/known-limitations.md](./docs/known-limitations.md).
+
+---
+
 ## Contents
 
 ### Concept docs
@@ -66,6 +92,23 @@ Then assess THIS project against it and output the report + adoption handoff. Do
 |---|---|
 | [governance-guard-template.mjs](./governance-guard-template.mjs) | Minimal defensive scaffold. File scanner engine + import-integrity rule + commented example rules. Drop into `scripts/`, customize. |
 | [templates/check-migration-grants.mjs](./templates/check-migration-grants.mjs) | Supabase migration linter. Catches `CREATE TABLE` without matching `GRANT` (a hard requirement from 2026-10-30 onward). |
+| [templates/data-source-registry-template.md](./templates/data-source-registry-template.md) | The Critical-Traces registry shape the trace-lock skill greps. Per-trace block template incl. a Known-readers field. |
+
+### Governance skills (copy into `.claude/skills/`)
+
+| Skill | What it does |
+|---|---|
+| [scaffold/skills/architecture-completeness-guardian/](./scaffold/skills/architecture-completeness-guardian/) | The L0 entry gate. Catches "I want to build X" / "clean up the X mess", classifies the scenario, dispatches your domain skills, and spawns a 5-layer codebase-completeness scan. A template — fill its dispatch table with your skills. |
+| [scaffold/skills/trace-lock-modify/](./scaffold/skills/trace-lock-modify/) | Cross-layer trace protection: before editing a registered node (or adding a reader of its anchor), list the chain, pin behavior with the trace test, re-run, update the registry. |
+
+### Concept docs, rule templates & onboarding
+
+| Path | What's there |
+|---|---|
+| [scaffold/concepts/](./scaffold/concepts/) | The theory: [governance-hierarchy](./scaffold/concepts/governance-hierarchy.md) (L0/L1/L2), [trace-surface-spirit](./scaffold/concepts/trace-surface-spirit.md), [audit-first-vs-architecture-gate-boundary](./scaffold/concepts/audit-first-vs-architecture-gate-boundary.md), [config-debt-taxonomy](./scaffold/concepts/config-debt-taxonomy.md) |
+| [scaffold/claude-md-rule-templates/](./scaffold/claude-md-rule-templates/) | Copy-paste CLAUDE.md rules: [rule-33 architecture gate](./scaffold/claude-md-rule-templates/rule-33-architecture-gate.md), [rule-29 trace lock](./scaffold/claude-md-rule-templates/rule-29-trace-lock.md), [rule-30 config debt](./scaffold/claude-md-rule-templates/rule-30-config-debt.md) |
+| [docs/](./docs/) | [onboarding-checklist](./docs/onboarding-checklist.md) (the AI-executable install), [why-this-exists](./docs/why-this-exists.md), [design-pattern-industry-mapping](./docs/design-pattern-industry-mapping.md), [known-limitations](./docs/known-limitations.md) |
+| [examples/](./examples/) | [30-min walkthrough](./examples/30-min-onboarding-walkthrough.md) + 3 [case studies](./examples/case-studies/) that shaped the skill clauses |
 
 ---
 
@@ -112,11 +155,16 @@ Best for: building your own project-specific governance layer with this as the s
 
 ---
 
-## What's intentionally missing
+## What's now opt-in (was withheld)
 
-- **Trace lock methodology** — depends on infrastructure that doesn't exist in projects below ~500 source files. Including it here would teach cargo-cult adoption.
-- **Config-debt classification** — same reason. Useful in a 12+ month codebase; premature in a new one.
-- **Data-contract propagation audit** — depends on a normalizer middleware layer. Most stacks don't have one.
+The skill layer (`scaffold/`) brings in two patterns the first release deliberately withheld. They're here now, but **gated, not default** — the fitness check tells you whether your project is big/mature enough, and the install asks before pulling them:
+
+- **Trace lock methodology** ([skill](./scaffold/skills/trace-lock-modify/SKILL.md) + [concept](./scaffold/concepts/trace-surface-spirit.md)) — still needs a project with real cross-layer chains (~500+ files). Premature below that; the fitness check's S11 signal decides.
+- **Config-debt classification** ([concept](./scaffold/concepts/config-debt-taxonomy.md) + [rule](./scaffold/claude-md-rule-templates/rule-30-config-debt.md)) — useful in a 12+ month codebase with a config store; premature in a new one (fitness check S10).
+
+## Still intentionally missing
+
+- **Data-contract propagation audit** — depends on a normalizer middleware layer. Most stacks don't have one. (The guardian's dispatch table leaves a `<placeholder>` for it.)
 - **Cross-tenant role helpers** — too tied to a specific auth model. Roll your own.
 
 These may move in once a second non-toy project has validated them. Until then, they live in the source codebase they came from.
