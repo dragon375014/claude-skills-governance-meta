@@ -1,6 +1,10 @@
 # claude-skills-governance-meta
 
+**Design-time governance for your codebase — not runtime guardrails for autonomous agents.**
+
 Defensive and offensive governance patterns harvested from a working production codebase. Five concept docs and two runnable templates. Copy what helps, fork the rest.
+
+> **The name is broad; the scope is narrow — on purpose.** This is *not* a runtime policy engine that authenticates, sandboxes, or kill-switches autonomous AI agents in production (the niche of Microsoft's [Agent Governance Toolkit](https://github.com/microsoft/agent-governance-toolkit), the OWASP Agentic Top 10, and similar). It governs the **codebase and the act of writing it**: catching the same *class* of structural bug *before it ships*, through CI linters that block (defensive) and pre-build agent skills that steer design (offensive). The "agent" here is the coding assistant you're *steering* — not an autonomous worker you're *policing*.
 
 ---
 
