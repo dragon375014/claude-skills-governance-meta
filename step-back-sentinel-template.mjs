@@ -190,9 +190,11 @@ export function analyze(facts) {
     })
   }
 
-  // S4: god-file forming (migrations/docs/locks excluded — long is normal there)
+  // S4: god-file forming — only MODIFIED (pre-existing) files; a brand-new file's
+  // initial size isn't "accumulation". (migrations/docs/locks excluded — long is normal.)
+  const addedFiles = new Set(fileStatuses.filter(s => s.status === 'A').map(s => s.file))
   const bigFiles = Object.entries(fileNetLines)
-    .filter(([f, n]) => n >= THRESHOLDS.GOD_FILE_LINES && !/\.(sql|md|lock|json|snap|svg)$/i.test(f) && !/test/i.test(f))
+    .filter(([f, n]) => n >= THRESHOLDS.GOD_FILE_LINES && !addedFiles.has(f) && !/\.(sql|md|lock|json|snap|svg)$/i.test(f) && !/test/i.test(f))
     .sort((a, b) => b[1] - a[1])
   if (bigFiles.length) {
     findings.push({
