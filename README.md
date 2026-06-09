@@ -85,6 +85,7 @@ The agent reads [docs/onboarding-checklist.md](./docs/onboarding-checklist.md) a
 | File | What it covers |
 |---|---|
 | [defensive-vs-offensive-governance.md](./defensive-vs-offensive-governance.md) | The two modes of automated governance. Most teams have one. Few have both. |
+| [scaffold/concepts/forward-bias-and-the-reverse-organ.md](./scaffold/concepts/forward-bias-and-the-reverse-organ.md) | Both defensive *and* offensive governance are forward-triggered. Why solo-dev governance has no "step back" trigger, and the three-part reverse organ that adds one. |
 | [breakpoint-taxonomy.md](./breakpoint-taxonomy.md) | Types A–E. Classify a bug structurally before deciding how to fix it. |
 | [anti-patterns/spread-overwrites-ssot.md](./anti-patterns/spread-overwrites-ssot.md) | `{ ...obj, ssot_field: localVar }` and why your admin sees correct data while anon users don't. |
 | [anti-patterns/pg-function-overload-zombie.md](./anti-patterns/pg-function-overload-zombie.md) | `CREATE OR REPLACE FUNCTION` doesn't replace overloads. Why the signed link broke on Tuesday. |
@@ -97,6 +98,7 @@ The agent reads [docs/onboarding-checklist.md](./docs/onboarding-checklist.md) a
 | [governance-guard-template.mjs](./governance-guard-template.mjs) | Minimal defensive scaffold. File scanner engine + import-integrity rule + commented example rules. Drop into `scripts/`, customize. |
 | [templates/check-migration-grants.mjs](./templates/check-migration-grants.mjs) | Supabase migration linter. Catches `CREATE TABLE` without matching `GRANT` (a hard requirement from 2026-10-30 onward). |
 | [templates/data-source-registry-template.md](./templates/data-source-registry-template.md) | The Critical-Traces registry shape the trace-lock skill greps. Per-trace block template incl. a Known-readers field. |
+| [step-back-sentinel-template.mjs](./step-back-sentinel-template.mjs) | The asymmetry sentinel (reverse organ, Part 2). Silent unless it detects a "changed A, forgot B" footprint. Replace the example tripwires with your own incident classes; wire advisory (never blocking). |
 
 ### Governance skills (copy into `.claude/skills/`)
 
@@ -104,13 +106,14 @@ The agent reads [docs/onboarding-checklist.md](./docs/onboarding-checklist.md) a
 |---|---|
 | [scaffold/skills/architecture-completeness-guardian/](./scaffold/skills/architecture-completeness-guardian/) | The L0 entry gate. Catches "I want to build X" / "clean up the X mess", classifies the scenario, dispatches your domain skills, and spawns a 5-layer codebase-completeness scan. A template — fill its dispatch table with your skills. |
 | [scaffold/skills/trace-lock-modify/](./scaffold/skills/trace-lock-modify/) | Cross-layer trace protection: before editing a registered node (or adding a reader of its anchor), list the chain, pin behavior with the trace test, re-run, update the registry. |
+| [scaffold/skills/step-back-review/](./scaffold/skills/step-back-review/) | The reverse organ, Part 1. A deliberate ADVERSARY persona (not a helpful gatekeeper) with six lenses — end-to-end trace / gap analysis / handoff test / boundary check / devil's advocate / panorama. Pairs with the sentinel + rule-34. |
 
 ### Concept docs, rule templates & onboarding
 
 | Path | What's there |
 |---|---|
-| [scaffold/concepts/](./scaffold/concepts/) | The theory: [governance-hierarchy](./scaffold/concepts/governance-hierarchy.md) (L0/L1/L2), [trace-surface-spirit](./scaffold/concepts/trace-surface-spirit.md), [audit-first-vs-architecture-gate-boundary](./scaffold/concepts/audit-first-vs-architecture-gate-boundary.md), [config-debt-taxonomy](./scaffold/concepts/config-debt-taxonomy.md) |
-| [scaffold/claude-md-rule-templates/](./scaffold/claude-md-rule-templates/) | Copy-paste CLAUDE.md rules: [rule-33 architecture gate](./scaffold/claude-md-rule-templates/rule-33-architecture-gate.md), [rule-29 trace lock](./scaffold/claude-md-rule-templates/rule-29-trace-lock.md), [rule-30 config debt](./scaffold/claude-md-rule-templates/rule-30-config-debt.md) |
+| [scaffold/concepts/](./scaffold/concepts/) | The theory: [governance-hierarchy](./scaffold/concepts/governance-hierarchy.md) (L0/L1/L2), [trace-surface-spirit](./scaffold/concepts/trace-surface-spirit.md), [audit-first-vs-architecture-gate-boundary](./scaffold/concepts/audit-first-vs-architecture-gate-boundary.md), [config-debt-taxonomy](./scaffold/concepts/config-debt-taxonomy.md), [forward-bias-and-the-reverse-organ](./scaffold/concepts/forward-bias-and-the-reverse-organ.md) |
+| [scaffold/claude-md-rule-templates/](./scaffold/claude-md-rule-templates/) | Copy-paste CLAUDE.md rules: [rule-33 architecture gate](./scaffold/claude-md-rule-templates/rule-33-architecture-gate.md), [rule-29 trace lock](./scaffold/claude-md-rule-templates/rule-29-trace-lock.md), [rule-30 config debt](./scaffold/claude-md-rule-templates/rule-30-config-debt.md), [rule-34 step-back cadence](./scaffold/claude-md-rule-templates/rule-34-step-back-cadence.md) |
 | [docs/](./docs/) | [onboarding-checklist](./docs/onboarding-checklist.md) (the AI-executable install), [why-this-exists](./docs/why-this-exists.md), [design-pattern-industry-mapping](./docs/design-pattern-industry-mapping.md), [known-limitations](./docs/known-limitations.md) |
 | [examples/](./examples/) | [30-min walkthrough](./examples/30-min-onboarding-walkthrough.md) + 3 [case studies](./examples/case-studies/) that shaped the skill clauses |
 
