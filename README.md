@@ -193,6 +193,16 @@ Kept as separate repos on purpose — governance and task-shaping are different 
 
 ---
 
+## Ecosystem
+
+This repo is the **governance layer** of a five-repo AI-dev toolchain — full map: [ai-dev-toolkit/ECOSYSTEM.md](https://github.com/dragon375014/ai-dev-toolkit/blob/main/ECOSYSTEM.md).
+
+- **Upstream of the code it guards** — [`spec-sonar`](https://github.com/dragon375014/spec-sonar) (private) converges ideas into specs and goal graphs; [`goal-workflow-designer`](https://github.com/dragon375014/goal-workflow-designer) shapes tasks into precise `/goal` prompts or workflows. This repo locks in what they ship: CI guards that block bug classes (defensive) and gate skills that steer design (offensive).
+- **Sibling** — [`agent-work-board`](https://github.com/dragon375014/agent-work-board) coordinates *between* parallel sessions; this repo governs *what each session writes*.
+- **Canonical note** — `scaffold/skills/` are canonical structure; installed project copies are expected to diverge in their dispatch tables (customization, not drift).
+
+---
+
 ## Stability
 
 This repo is **snapshot-mode**. Updates land when the source codebase produces a generalizable pattern, not on a calendar. Expect long quiet periods. No semver guarantees — pin to a commit hash if you need stability.
