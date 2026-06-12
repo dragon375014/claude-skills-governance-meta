@@ -2,7 +2,7 @@
 
 **Design-time governance for your codebase — not runtime guardrails for autonomous agents.**
 
-Defensive and offensive governance patterns harvested from a working production codebase. Five concept docs and two runnable templates. Copy what helps, fork the rest.
+Defensive and offensive governance patterns harvested from a working production codebase. Seven concept docs, three runnable templates, and three governance skills. Copy what helps, fork the rest.
 
 > **The name is broad; the scope is narrow — on purpose.** This is *not* a runtime policy engine that authenticates, sandboxes, or kill-switches autonomous AI agents in production (the niche of Microsoft's [Agent Governance Toolkit](https://github.com/microsoft/agent-governance-toolkit), the OWASP Agentic Top 10, and similar). It governs the **codebase and the act of writing it**: catching the same *class* of structural bug *before it ships*, through CI linters that block (defensive) and pre-build agent skills that steer design (offensive). The "agent" here is the coding assistant you're *steering* — not an autonomous worker you're *policing*.
 
@@ -12,7 +12,7 @@ Defensive and offensive governance patterns harvested from a working production 
 
 A solo developer's project will accumulate the same class of bug three or four times before someone (or you, much later) writes down the pattern. Once written down, the pattern is short enough to copy into your next project — but only if it was written down at all.
 
-This repo is the externalised, business-neutral subset of one such codebase: the meta-layer governance that survived contact with real incidents. It's deliberately small (~five concept docs + two `.mjs` templates) because the smallest useful version is the one that gets reused.
+This repo is the externalised, business-neutral subset of one such codebase: the meta-layer governance that survived contact with real incidents. It's deliberately small (~seven concept docs + three `.mjs` templates + three agent skills) because the smallest useful version is the one that gets reused.
 
 What is **not** here:
 
@@ -178,16 +178,18 @@ These may move in once a second non-toy project has validated them. Until then, 
 
 ## Ecosystem
 
-This tool is part of a **six-repo AI-dev toolchain** by [dragon375014](https://github.com/dragon375014).
+This repo is the **governance layer** of an AI-dev toolchain of **five public repos** by [dragon375014](https://github.com/dragon375014). One-command install (drops all five tools into the right place): `npx specmit init`. Full topology, routing rules, and canonical skill ownership → [**specmit/ECOSYSTEM.md**][ecosystem-map].
 
-**One-command install** (drops all six tools into the right place):
-```bash
-npx specmit init
-```
+- **Upstream** — [`spec-sonar`](https://github.com/dragon375014/spec-sonar) converges ideas into specs and goal graphs; [`goal-workflow-designer`](https://github.com/dragon375014/goal-workflow-designer) shapes tasks into precise `/goal` prompts or workflows. This repo locks in what they ship: CI guards that block bug classes (defensive) and gate skills that steer design (offensive).
+- **Siblings** — [`specmit`](https://github.com/dragon375014/specmit) runs the idea→spec→goals→MVP pipeline; [`agent-work-board`](https://github.com/dragon375014/agent-work-board) coordinates *between* parallel sessions; this repo governs *what each session writes*.
+- **Canonical note** — `scaffold/skills/` are canonical structure; installed project copies are expected to diverge in their dispatch tables (customization, not drift).
 
-Full topology, routing rules, and canonical skill ownership → [**ai-dev-toolkit/ECOSYSTEM.md**](https://github.com/dragon375014/ai-dev-toolkit/blob/master/ECOSYSTEM.md)
+[ecosystem-map]: https://github.com/dragon375014/specmit/blob/main/ECOSYSTEM.md
 
-Siblings: [spec-sonar](https://github.com/dragon375014/spec-sonar) · [goal-workflow-designer](https://github.com/dragon375014/goal-workflow-designer) · [specmit](https://github.com/dragon375014/specmit) · [agent-work-board](https://github.com/dragon375014/agent-work-board) · [ai-dev-toolkit](https://github.com/dragon375014/ai-dev-toolkit)
+## How the pipeline uses this repo
+
+- **Spec stage** — `spec-sonar`'s `idea-to-spec` *suggests* installing this repo's governance skills when it scores a project `complexity=enterprise`. A suggestion only — it never auto-installs.
+- **Execution stage** — `specmit`'s `idea-to-mvp` executor ships a governance hook: it auto-detects the host project's `scripts/governance-guard.mjs`, `npm run audit:all`, and `.claude/skills/` architecture gates, and runs them before a goal may be declared complete. A failed gate = goal failed.
 
 ---
 
@@ -205,16 +207,6 @@ This repo guards **how a thing is built** (structure). Its companion shapes **wh
 - Mental model: **that repo = the brief; this repo = the guardrails.** Use that one for sharper task specs; add this one when your project is big enough to need structural governance (the fitness check above tells you when).
 
 Kept as separate repos on purpose — governance and task-shaping are different verticals, and one focused repo is easier to navigate than a mixed bag. Each stands alone; install both for full coverage.
-
----
-
-## Ecosystem
-
-This repo is the **governance layer** of a six-repo AI-dev toolchain — full map: [ai-dev-toolkit/ECOSYSTEM.md](https://github.com/dragon375014/ai-dev-toolkit/blob/HEAD/ECOSYSTEM.md).
-
-- **Upstream of the code it guards** — [`spec-sonar`](https://github.com/dragon375014/spec-sonar) (private) converges ideas into specs and goal graphs; [`goal-workflow-designer`](https://github.com/dragon375014/goal-workflow-designer) shapes tasks into precise `/goal` prompts or workflows. This repo locks in what they ship: CI guards that block bug classes (defensive) and gate skills that steer design (offensive).
-- **Sibling** — [`agent-work-board`](https://github.com/dragon375014/agent-work-board) coordinates *between* parallel sessions; this repo governs *what each session writes*.
-- **Canonical note** — `scaffold/skills/` are canonical structure; installed project copies are expected to diverge in their dispatch tables (customization, not drift).
 
 ---
 

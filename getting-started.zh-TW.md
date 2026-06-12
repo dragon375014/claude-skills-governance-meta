@@ -98,7 +98,9 @@ npm pkg set scripts.prebuild="npm run guard"     # 每次 build 前自動跑
 
 > ⚠️ **複製 ≠ 觸發**。第 4 步只是手動跑一次；第 5 步把它接進 `prebuild` / pre-commit hook，它才會**每次自動觸發**。只 copy 不接 hook = 那支檔案永遠不會自己跑。
 >
-> （這段講的是 `.mjs` 模板。這個 repo 現在**也**發 Claude skill 了（`scaffold/skills/` 的 architecture-completeness-guardian + trace-lock-modify）——那一層不是靠 hook、是靠 skill registry + 一條 CLAUDE.md 規則觸發。裝 skill 時務必放在第一層 `.claude/skills/<name>/SKILL.md`：Claude 的 registry 只認第一層、不掃 `.claude/skills/<分類>/<name>/` 子目錄，放錯一層 skill 就從清單消失。怎麼裝見 [`docs/onboarding-checklist.md`](./docs/onboarding-checklist.md)，放置規則細節見 [`adoption-fitness-check.md`](./adoption-fitness-check.md) §4。）
+> （這段講的是 `.mjs` 模板。這個 repo 現在**也**發 Claude skill 了（`scaffold/skills/` 的 architecture-completeness-guardian + trace-lock-modify + step-back-review）——那一層不是靠 hook、是靠 skill registry + 一條 CLAUDE.md 規則觸發。裝 skill 時務必放在第一層 `.claude/skills/<name>/SKILL.md`：Claude 的 registry 只認第一層、不掃 `.claude/skills/<分類>/<name>/` 子目錄，放錯一層 skill 就從清單消失。怎麼裝見 [`docs/onboarding-checklist.md`](./docs/onboarding-checklist.md)，放置規則細節見 [`adoption-fitness-check.md`](./adoption-fitness-check.md) §4。
+>
+> 還有一個關鍵警告：**skill 只是「提醒 AI」的 prompt，不是強制機制**——新開的 session 不保證一定自動觸發，這就是為什麼除了裝 skill 還要在 CLAUDE.md 加一條 hard rule 當第二道保險。skill 層「不保證什麼」全寫在 [`docs/known-limitations.md`](./docs/known-limitations.md)，裝之前先讀。）
 
 ### 路徑 2：你還沒踩過坑，先看哪些坑長什麼樣
 
@@ -107,6 +109,22 @@ npm pkg set scripts.prebuild="npm run guard"     # 每次 build 前自動跑
 讀完後你會有：
 - 一份「我可能會踩什麼坑」的清單
 - 知道每種坑該怎麼預防（每篇都有 Detection Rule 段）
+
+---
+
+## 第三個 skill：step-back-review（反向審查）
+
+前面講的 guardian 和 trace-lock 都是「你要動手做某件事」的時候才觸發——方向全部是**往前衝**。step-back-review 是反方向的：它叫 AI 切換成「唱反調的審查者」，專門做一個人開發最缺的那件事——**退一步看全局、挑毛病、找出「改了 A 忘了 B」的洞**。
+
+一個人寫程式沒有 reviewer、沒有 QA、沒有會跟你抬槓的 PM；這個 skill 就是讓 AI 補上那個「站在對立面的人」。你說「退一步看整體」「幫我挑毛病」「少了什麼直接列、先不要做」這類話時就會觸發。
+
+整套體系是三件一組：
+
+| 組件 | 檔案位置 | 角色 |
+|---|---|---|
+| skill 本體（六種審查鏡頭） | [`scaffold/skills/step-back-review/`](./scaffold/skills/step-back-review/) | 你開口時的深度反向審查（對抗 persona） |
+| 哨兵 script | [`step-back-sentinel-template.mjs`](./step-back-sentinel-template.mjs) | 自動偵測「改了 A、忘了 B」的足跡；乾淨就閉嘴，只在有事時開口 |
+| CLAUDE.md 規則 | [`scaffold/claude-md-rule-templates/rule-34-step-back-cadence.md`](./scaffold/claude-md-rule-templates/rule-34-step-back-cadence.md) | 接線：開 session 時 + 每 N 個 commit 自動跑哨兵，不用靠你記得 |
 
 ---
 
@@ -163,9 +181,11 @@ npm pkg set scripts.prebuild="npm run guard"     # 每次 build 前自動跑
 
 ---
 
-## 相關 repo（未來會有）
+## 相關 repo
 
-我規劃中的下一個 OSS 小 repo 是 `claude-skills-goal-design`，主題是「怎麼設計一個有 rubric + 五元素的精確 goal prompt 給 AI 跑」。等那個 repo 上架後，這裡會加 cross-link。
+當初規劃的 `claude-skills-goal-design` 已經上架了，改名叫 [`goal-workflow-designer`](https://github.com/dragon375014/goal-workflow-designer)——主題就是當初說的「怎麼設計一個有 rubric + 五元素的精確 goal prompt 給 AI 跑」。
+
+這個 repo 現在是**五個公開 repo 工具鏈**的治理層（spec-sonar、specmit、goal-workflow-designer、agent-work-board、加上這裡）。完整地圖見 [specmit/ECOSYSTEM.md](https://github.com/dragon375014/specmit/blob/main/ECOSYSTEM.md)；想一個指令全裝，跑 `npx specmit init`。
 
 ---
 
