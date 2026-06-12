@@ -176,6 +176,21 @@ The skill layer (`scaffold/`) brings in two patterns the first release deliberat
 
 These may move in once a second non-toy project has validated them. Until then, they live in the source codebase they came from.
 
+## Ecosystem
+
+This tool is part of a **six-repo AI-dev toolchain** by [dragon375014](https://github.com/dragon375014).
+
+**One-command install** (drops all six tools into the right place):
+```bash
+npx specmit init
+```
+
+Full topology, routing rules, and canonical skill ownership → [**ai-dev-toolkit/ECOSYSTEM.md**](https://github.com/dragon375014/ai-dev-toolkit/blob/master/ECOSYSTEM.md)
+
+Siblings: [spec-sonar](https://github.com/dragon375014/spec-sonar) · [goal-workflow-designer](https://github.com/dragon375014/goal-workflow-designer) · [specmit](https://github.com/dragon375014/specmit) · [agent-work-board](https://github.com/dragon375014/agent-work-board) · [ai-dev-toolkit](https://github.com/dragon375014/ai-dev-toolkit)
+
+---
+
 ## Companion repo — task shaping (姐妹 repo — 任務塑形)
 
 This repo guards **how a thing is built** (structure). Its companion shapes **what to do** (the task spec):
