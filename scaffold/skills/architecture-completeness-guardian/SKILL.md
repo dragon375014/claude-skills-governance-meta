@@ -227,6 +227,21 @@ Execution detail → [`references/scene-new-setting.md`](references/scene-new-se
 
 ---
 
+## Anti-Rationalization
+
+> The left column is the thought you're most likely to generate to **skip this L0 gate**; the right column is the rebuttal.
+
+| The thought you'll have | Rebuttal |
+|---|---|
+| "This is just fixing an existing bug / cleaning up some mess — no new schema, no new route, so I can skip the L0 gate." | "Clean up / tidy the existing X" *is* the R0 reverse trigger, not a trivial edit. SKIP is only for pure copy / pure styling / a one-line typo. |
+| "The user mentioned audit-first, so I'll run that rule and not trigger this gate." | An audit-first planning rule's scope is a `/goal`-style entry — this skill *is* audit-before-build. Treating them as mutually exclusive is a classic missed-trigger root cause. |
+| "The user asked 'should we build X' (a decision), so I'll only run the requirements-review checklist." | Any concrete build intent ("want to build / add / extract / unify / figure out / clean up") → this gate fires first; the requirements-review becomes a Part-2 sub-task. Only a pure decision (no build intent) runs requirements-review alone. |
+| "It's a single-file change, no cross-layer — the 4-part report is overkill." | Part 0's triage threshold is exactly for this — but a lightweight exit still emits Part 1 (scenario classification); it does not mean "no classification at all." |
+| "Dispatching the one most-relevant skill is enough." | Real scenarios cross layers (anti-pattern D). The "always pull + pull-depending-on-layer" structure expects ≥1; pulling only one misses the other layers. |
+| "The new feature only reads stock / price (read-only) — no need to dispatch trace-lock." | Trace-surface spirit: a new reader also expands the trace surface, and the anchor's future changes will break it. See [`trace-surface-spirit.md`](../../concepts/trace-surface-spirit.md). |
+
+---
+
 ## Anti-patterns (summary)
 
 > Full list + the reasoning behind each → [`references/anti-patterns.md`](references/anti-patterns.md).

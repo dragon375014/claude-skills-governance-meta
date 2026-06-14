@@ -131,16 +131,22 @@ After the edit is done and the trace test is green:
 
 ---
 
-## Anti-patterns (avoid)
+## Anti-Rationalization
 
-❌ "I've changed it a few times, I know the blast radius" → **skipping the trace test**
-→ No. The trace test exists to pin current behavior; **human memory is unreliable**, and next time you'll have forgotten.
+> The left column is the in-the-moment **thought** you (the AI) are most likely to
+> generate to skip this audit; the right column is the rebuttal. The moment you catch
+> yourself thinking a left-column line, stop and run the 5 steps.
 
-❌ "the test failed but I've verified the logic is right" → **changing the test instead of the logic**
-→ High-risk. Changing the test breaks the old contract. **Get the user's explicit consent**, and note in the commit message "recalibrated the T-NNN contract; old behavior at commit XXX".
+| The thought you'll have | Rebuttal |
+|---|---|
+| "It's read-only — I only read, I don't write, so I'm not modifying a trace node." | Wrong. Adding a reader that depends on the anchor expands the trace surface; when the anchor changes later, your read-only reader breaks too. See [`trace-surface-spirit.md`](../../concepts/trace-surface-spirit.md). Read-only still runs Step 5 (register yourself as a Known reader). |
+| "I've edited this trace a few times this session, I know the blast radius — no need to run the test." | The trace test exists precisely so you don't rely on memory. Model memory is as unreliable as human memory. The more familiar it feels, the more that familiarity is the precursor to a miss. |
+| "This is a pure refactor / rename, behavior doesn't change, so skip the trace test." | Refactors break traces most easily: changing an import path, extracting a helper, reordering params — any of them can make the render side silently receive null. A refactor isn't an exemption; it needs the test more. |
+| "The user only asked me to fix this bug, not to run trace-lock — doing it unprompted is out of scope." | Trace-lock is an unconditional pre-gate, not an à-la-carte item the user orders each time. Scope discipline means "don't touch unrelated things", not "don't run the verification you're supposed to run." |
+| "The test went red, but I'm sure my change is right — the test is stale, I'll just change the test." | Highest-risk move. Changing the test unilaterally breaks the old contract (Chesterton's Fence). Get the user's explicit consent, and note in the commit "recalibrated T-NNN; old behavior at commit XXX". |
+| "I'll finish the feature first and update the registry Last-edited / add the test at the end." | "At the end" is the load-bearing phrase — there is no end. The registry note goes in the same commit as the change, or the next session sees "registry says untouched, but the code changed." |
 
-❌ "this is a pure refactor, it won't change behavior" → **so skip the trace test**
-→ Refactors break traces most easily (rename, extract helper, change import path). **Refactors need it more.**
+## Anti-patterns (structural — a defensive guard blocks these)
 
 ❌ declaring a trace in the registry **but writing no trace test**
 → A defensive guard should block this. Registry and test must come in pairs.
