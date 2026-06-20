@@ -5,6 +5,7 @@
  * See: scaffold/concepts/forward-bias-and-the-reverse-organ.md
  *      scaffold/claude-md-rule-templates/rule-34-step-back-cadence.md
  *      scaffold/skills/step-back-review/SKILL.md
+ *      playbooks/harvest-routing.md  (route a tripped lesson to its durable home)
  *
  * WHAT IT IS
  *   A cadence trigger that runs a cheap pre-check and STAYS SILENT unless it trips.
@@ -284,6 +285,17 @@ function main() {
     console.log(`      ${f.detail}`)
     console.log(`      ↳ ${f.maps}\n`)
   })
+  // 🌾 Harvest hand-raise: recurrence/thrash/hard tripwires = "this will be hit again, maybe in
+  // another project" — the strongest signal a lesson is worth routing to a durable home.
+  // Auto-raise, human-ratify: removes the "only-when-I-remember-to-ask" single point of failure.
+  // Semantic harvestables (first-time-obvious reuse, a blog-worthy insight) the sentinel can't see —
+  // those trigger via your harvest-routing skill, not here. See playbooks/harvest-routing.md.
+  const harvestSignals = findings.filter(f => f.id === 'S2' || f.severity === '🚨')
+  if (harvestSignals.length > 0) {
+    console.log(`   🌾 Harvestable signal [${harvestSignals.map(f => f.id).join(', ')}] (recurs/thrashes/hard = likely to be hit again)`)
+    console.log('      → route this lesson to a durable home: reusable-code index / cross-project GOTCHAS / governance rule / decision record.')
+    console.log('      Pass the worth-it gate first (not rare + spills to other projects + cheap to capture); else drop. See playbooks/harvest-routing.md.\n')
+  }
   console.log('   Review now, or note it and finish this chunk first?')
   console.log('   (after reviewing: `node step-back-sentinel.mjs --ack` to reset the baseline)\n')
   process.exit(1) // advisory: lets an audit runner flag it without blocking push

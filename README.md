@@ -90,6 +90,7 @@ The agent reads [docs/onboarding-checklist.md](./docs/onboarding-checklist.md) a
 | [anti-patterns/spread-overwrites-ssot.md](./anti-patterns/spread-overwrites-ssot.md) | `{ ...obj, ssot_field: localVar }` and why your admin sees correct data while anon users don't. |
 | [anti-patterns/pg-function-overload-zombie.md](./anti-patterns/pg-function-overload-zombie.md) | `CREATE OR REPLACE FUNCTION` doesn't replace overloads. Why the signed link broke on Tuesday. |
 | [playbooks/ssot-consolidation.md](./playbooks/ssot-consolidation.md) | 5-step procedure for collapsing a scattered concept into one source of truth. |
+| [playbooks/harvest-routing.md](./playbooks/harvest-routing.md) | Route a one-off fix or insight to its durable home — auto-raised by the sentinel, ratified before write. The reverse organ's "where does this lesson live" step. |
 
 ### Runnable templates
 
@@ -157,6 +158,7 @@ Best for: building your own project-specific governance layer with this as the s
 - New project, need a CI governance scaffold from zero → start with [defensive-vs-offensive-governance.md](./defensive-vs-offensive-governance.md), then copy [governance-guard-template.mjs](./governance-guard-template.mjs)
 - Diagnosing a specific bug → walk the decision tree at the top of [breakpoint-taxonomy.md](./breakpoint-taxonomy.md)
 - Refactoring scattered logic into one place → use [playbooks/ssot-consolidation.md](./playbooks/ssot-consolidation.md)
+- A fix recurred or a session produced a reusable lesson → route it with [playbooks/harvest-routing.md](./playbooks/harvest-routing.md)
 - A specific anti-pattern keeps reappearing → read the matching file in `anti-patterns/` for the Symptom → Root cause → Detection rule chain
 - Supabase project, migration freshly applied, ready for 2026-10-30 → copy [templates/check-migration-grants.mjs](./templates/check-migration-grants.mjs)
 
