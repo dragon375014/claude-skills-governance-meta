@@ -89,6 +89,7 @@ The agent reads [docs/onboarding-checklist.md](./docs/onboarding-checklist.md) a
 | [breakpoint-taxonomy.md](./breakpoint-taxonomy.md) | Types A–E. Classify a bug structurally before deciding how to fix it. |
 | [anti-patterns/spread-overwrites-ssot.md](./anti-patterns/spread-overwrites-ssot.md) | `{ ...obj, ssot_field: localVar }` and why your admin sees correct data while anon users don't. |
 | [anti-patterns/pg-function-overload-zombie.md](./anti-patterns/pg-function-overload-zombie.md) | `CREATE OR REPLACE FUNCTION` doesn't replace overloads. Why the signed link broke on Tuesday. |
+| [anti-patterns/guard-that-tests-a-copy.md](./anti-patterns/guard-that-tests-a-copy.md) | A protection test that re-declares the logic instead of importing the SSOT tests a fossil — stays green while production breaks. Plus the deny-by-default fallback flip that needs a completeness gate. |
 | [playbooks/ssot-consolidation.md](./playbooks/ssot-consolidation.md) | 5-step procedure for collapsing a scattered concept into one source of truth. |
 | [playbooks/harvest-routing.md](./playbooks/harvest-routing.md) | Route a one-off fix or insight to its durable home — auto-raised by the sentinel, ratified before write. The reverse organ's "where does this lesson live" step. |
 
