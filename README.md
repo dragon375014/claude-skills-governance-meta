@@ -92,6 +92,7 @@ The agent reads [docs/onboarding-checklist.md](./docs/onboarding-checklist.md) a
 | [anti-patterns/guard-that-tests-a-copy.md](./anti-patterns/guard-that-tests-a-copy.md) | A protection test that re-declares the logic instead of importing the SSOT tests a fossil — stays green while production breaks. Plus the deny-by-default fallback flip that needs a completeness gate. |
 | [playbooks/ssot-consolidation.md](./playbooks/ssot-consolidation.md) | 5-step procedure for collapsing a scattered concept into one source of truth. |
 | [playbooks/harvest-routing.md](./playbooks/harvest-routing.md) | Route a one-off fix or insight to its durable home — auto-raised by the sentinel, ratified before write. The reverse organ's "where does this lesson live" step. |
+| [playbooks/cost-tier-routing.md](./playbooks/cost-tier-routing.md) | Companion to harvest-routing — the orthogonal axis: which *compute tier* (script / hook / skill / small-model / frontier) runs a harvested lesson next time, so reasoning you paid for once becomes cheap to repeat. |
 
 ### Runnable templates
 
@@ -109,13 +110,14 @@ The agent reads [docs/onboarding-checklist.md](./docs/onboarding-checklist.md) a
 | [scaffold/skills/architecture-completeness-guardian/](./scaffold/skills/architecture-completeness-guardian/) | The L0 entry gate. Catches "I want to build X" / "clean up the X mess", classifies the scenario, dispatches your domain skills, and spawns a 5-layer codebase-completeness scan. A template — fill its dispatch table with your skills. |
 | [scaffold/skills/trace-lock-modify/](./scaffold/skills/trace-lock-modify/) | Cross-layer trace protection: before editing a registered node (or adding a reader of its anchor), list the chain, pin behavior with the trace test, re-run, update the registry. |
 | [scaffold/skills/step-back-review/](./scaffold/skills/step-back-review/) | The reverse organ, Part 1. A deliberate ADVERSARY persona (not a helpful gatekeeper) with six lenses — end-to-end trace / gap analysis / handoff test / boundary check / devil's advocate / panorama. Pairs with the sentinel + rule-34. |
+| [scaffold/skills/crystallize/](./scaffold/skills/crystallize/) | Post-session harvester. Classifies a token-heavy session's work into the cost-tier ladder and routes each repeatable piece to the cheapest tier that still does it correctly (script / hook / skill / small-model / frontier). Pairs with cost-tier-routing + rule-35. |
 
 ### Concept docs, rule templates & onboarding
 
 | Path | What's there |
 |---|---|
 | [scaffold/concepts/](./scaffold/concepts/) | The theory: [governance-hierarchy](./scaffold/concepts/governance-hierarchy.md) (L0/L1/L2), [trace-surface-spirit](./scaffold/concepts/trace-surface-spirit.md), [audit-first-vs-architecture-gate-boundary](./scaffold/concepts/audit-first-vs-architecture-gate-boundary.md), [config-debt-taxonomy](./scaffold/concepts/config-debt-taxonomy.md), [forward-bias-and-the-reverse-organ](./scaffold/concepts/forward-bias-and-the-reverse-organ.md) |
-| [scaffold/claude-md-rule-templates/](./scaffold/claude-md-rule-templates/) | Copy-paste CLAUDE.md rules: [rule-33 architecture gate](./scaffold/claude-md-rule-templates/rule-33-architecture-gate.md), [rule-29 trace lock](./scaffold/claude-md-rule-templates/rule-29-trace-lock.md), [rule-30 config debt](./scaffold/claude-md-rule-templates/rule-30-config-debt.md), [rule-34 step-back cadence](./scaffold/claude-md-rule-templates/rule-34-step-back-cadence.md) |
+| [scaffold/claude-md-rule-templates/](./scaffold/claude-md-rule-templates/) | Copy-paste CLAUDE.md rules: [rule-33 architecture gate](./scaffold/claude-md-rule-templates/rule-33-architecture-gate.md), [rule-29 trace lock](./scaffold/claude-md-rule-templates/rule-29-trace-lock.md), [rule-30 config debt](./scaffold/claude-md-rule-templates/rule-30-config-debt.md), [rule-34 step-back cadence](./scaffold/claude-md-rule-templates/rule-34-step-back-cadence.md), [rule-35 closing triage](./scaffold/claude-md-rule-templates/rule-35-closing-triage.md) |
 | [docs/](./docs/) | [onboarding-checklist](./docs/onboarding-checklist.md) (the AI-executable install), [why-this-exists](./docs/why-this-exists.md), [design-pattern-industry-mapping](./docs/design-pattern-industry-mapping.md), [known-limitations](./docs/known-limitations.md) |
 | [examples/](./examples/) | [30-min walkthrough](./examples/30-min-onboarding-walkthrough.md) + 3 [case studies](./examples/case-studies/) that shaped the skill clauses |
 
