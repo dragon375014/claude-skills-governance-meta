@@ -2,7 +2,7 @@
 
 **Design-time governance for your codebase — not runtime guardrails for autonomous agents.**
 
-Defensive and offensive governance patterns harvested from a working production codebase. Seven concept docs, three runnable templates, and three governance skills. Copy what helps, fork the rest.
+Defensive and offensive governance patterns harvested from a working production codebase. Seven concept docs, three runnable templates, and four governance skills. Copy what helps, fork the rest.
 
 > **The name is broad; the scope is narrow — on purpose.** This is *not* a runtime policy engine that authenticates, sandboxes, or kill-switches autonomous AI agents in production (the niche of Microsoft's [Agent Governance Toolkit](https://github.com/microsoft/agent-governance-toolkit), the OWASP Agentic Top 10, and similar). It governs the **codebase and the act of writing it**: catching the same *class* of structural bug *before it ships*, through CI linters that block (defensive) and pre-build agent skills that steer design (offensive). The "agent" here is the coding assistant you're *steering* — not an autonomous worker you're *policing*.
 
@@ -12,7 +12,7 @@ Defensive and offensive governance patterns harvested from a working production 
 
 A solo developer's project will accumulate the same class of bug three or four times before someone (or you, much later) writes down the pattern. Once written down, the pattern is short enough to copy into your next project — but only if it was written down at all.
 
-This repo is the externalised, business-neutral subset of one such codebase: the meta-layer governance that survived contact with real incidents. It's deliberately small (~seven concept docs + three `.mjs` templates + three agent skills) because the smallest useful version is the one that gets reused.
+This repo is the externalised, business-neutral subset of one such codebase: the meta-layer governance that survived contact with real incidents. It's deliberately small (~seven concept docs + three `.mjs` templates + four agent skills) because the smallest useful version is the one that gets reused.
 
 What is **not** here:
 
@@ -90,9 +90,11 @@ The agent reads [docs/onboarding-checklist.md](./docs/onboarding-checklist.md) a
 | [anti-patterns/spread-overwrites-ssot.md](./anti-patterns/spread-overwrites-ssot.md) | `{ ...obj, ssot_field: localVar }` and why your admin sees correct data while anon users don't. |
 | [anti-patterns/pg-function-overload-zombie.md](./anti-patterns/pg-function-overload-zombie.md) | `CREATE OR REPLACE FUNCTION` doesn't replace overloads. Why the signed link broke on Tuesday. |
 | [anti-patterns/guard-that-tests-a-copy.md](./anti-patterns/guard-that-tests-a-copy.md) | A protection test that re-declares the logic instead of importing the SSOT tests a fossil — stays green while production breaks. Plus the deny-by-default fallback flip that needs a completeness gate. |
+| [anti-patterns/decoupled-manual-mirror.md](./anti-patterns/decoupled-manual-mirror.md) | A hand-maintained artifact that restates a machine-readable truth (a claim board vs git branches) silently decouples and starts actively lying — "nobody is here" while git shows otherwise. |
 | [playbooks/ssot-consolidation.md](./playbooks/ssot-consolidation.md) | 5-step procedure for collapsing a scattered concept into one source of truth. |
 | [playbooks/harvest-routing.md](./playbooks/harvest-routing.md) | Route a one-off fix or insight to its durable home — auto-raised by the sentinel, ratified before write. The reverse organ's "where does this lesson live" step. |
 | [playbooks/cost-tier-routing.md](./playbooks/cost-tier-routing.md) | Companion to harvest-routing — the orthogonal axis: which *compute tier* (script / hook / skill / small-model / frontier) runs a harvested lesson next time, so reasoning you paid for once becomes cheap to repeat. |
+| [playbooks/supabase-web-security-gate.md](./playbooks/supabase-web-security-gate.md) | Severity-tagged P0~P2 Supabase/web-app security ruleset — the classes standard advisors and RLS linters never catch (RLS locks the row not the column, unauthenticated `SECURITY DEFINER` RPCs, etc.). Brownfield scan or design-time checklist. |
 
 ### Runnable templates
 
@@ -183,7 +185,7 @@ These may move in once a second non-toy project has validated them. Until then, 
 
 ## Ecosystem
 
-This repo is the **governance layer** of an AI-dev toolchain of **five public repos** by [dragon375014](https://github.com/dragon375014). One-command install (drops all five tools into the right place): `npx specmit init`. Full topology, routing rules, and canonical skill ownership → [**specmit/ECOSYSTEM.md**][ecosystem-map].
+This repo is the **governance layer** of an AI-dev toolchain of **five public repos** by [dragon375014](https://github.com/dragon375014). `npx specmit init` is a one-command install of the **core pipeline only** — spec-sonar's `idea-to-spec` / `goal-decomposer` / `audit-existing-project` skills plus the specmit bridge skill, runner, and hook. It does **not** install this repo, `goal-workflow-designer`'s `goal`/`workflow-shaper`, or `agent-work-board` — those are separate, opt-in installs. Full topology, routing rules, and canonical skill ownership → [**specmit/ECOSYSTEM.md**][ecosystem-map].
 
 - **Upstream** — [`spec-sonar`](https://github.com/dragon375014/spec-sonar) converges ideas into specs and goal graphs; [`goal-workflow-designer`](https://github.com/dragon375014/goal-workflow-designer) shapes tasks into precise `/goal` prompts or workflows. This repo locks in what they ship: CI guards that block bug classes (defensive) and gate skills that steer design (offensive).
 - **Siblings** — [`specmit`](https://github.com/dragon375014/specmit) runs the idea→spec→goals→MVP pipeline; [`agent-work-board`](https://github.com/dragon375014/agent-work-board) coordinates *between* parallel sessions; this repo governs *what each session writes*.
