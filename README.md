@@ -95,6 +95,7 @@ The agent reads [docs/onboarding-checklist.md](./docs/onboarding-checklist.md) a
 | [playbooks/harvest-routing.md](./playbooks/harvest-routing.md) | Route a one-off fix or insight to its durable home — auto-raised by the sentinel, ratified before write. The reverse organ's "where does this lesson live" step. |
 | [playbooks/cost-tier-routing.md](./playbooks/cost-tier-routing.md) | Companion to harvest-routing — the orthogonal axis: which *compute tier* (script / hook / skill / small-model / frontier) runs a harvested lesson next time, so reasoning you paid for once becomes cheap to repeat. |
 | [playbooks/supabase-web-security-gate.md](./playbooks/supabase-web-security-gate.md) | Severity-tagged P0~P2 Supabase/web-app security ruleset — the classes standard advisors and RLS linters never catch (RLS locks the row not the column, unauthenticated `SECURITY DEFINER` RPCs, etc.). Brownfield scan or design-time checklist. |
+| [playbooks/skill-orthogonality-audit.md](./playbooks/skill-orthogonality-audit.md) | Treat a skill/rule library as a basis and hunt collinear twins — two skills that are really two poles of one axis. The "model-native skills" thesis (arXiv:2604.17614) applied to your own tooling; the redundancy complement to the coverage (fidelity-to-source) audit. Pairs with the runnable detector below. |
 
 ### Runnable templates
 
@@ -104,6 +105,7 @@ The agent reads [docs/onboarding-checklist.md](./docs/onboarding-checklist.md) a
 | [templates/check-migration-grants.mjs](./templates/check-migration-grants.mjs) | Supabase migration linter. Catches `CREATE TABLE` without matching `GRANT` (a hard requirement from 2026-10-30 onward). |
 | [templates/data-source-registry-template.md](./templates/data-source-registry-template.md) | The Critical-Traces registry shape the trace-lock skill greps. Per-trace block template incl. a Known-readers field. |
 | [step-back-sentinel-template.mjs](./step-back-sentinel-template.mjs) | The asymmetry sentinel (reverse organ, Part 2). Silent unless it detects a "changed A, forgot B" footprint. Replace the example tripwires with your own incident classes; wire advisory (never blocking). |
+| [skill-orthogonality-audit.mjs](./skill-orthogonality-audit.mjs) | Runnable detector for [playbooks/skill-orthogonality-audit.md](./playbooks/skill-orthogonality-audit.md). TF-IDF collinearity over each `SKILL.md`'s trigger vocabulary; ranks the most-redundant skill pairs with their shared axis terms. Zero deps, offline, zh/en-mixed, advisory by default (`--strict` for CI). Point it at any `<name>/SKILL.md` library. |
 
 ### Governance skills (copy into `.claude/skills/`)
 
