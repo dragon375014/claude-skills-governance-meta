@@ -2,7 +2,7 @@
 
 **Design-time governance for your codebase — not runtime guardrails for autonomous agents.**
 
-Defensive and offensive governance patterns harvested from a working production codebase. Seven concept docs, three runnable templates, and four governance skills. Copy what helps, fork the rest.
+Defensive and offensive governance patterns harvested from a working production codebase. Eight concept docs, three runnable templates, and four governance skills. Copy what helps, fork the rest.
 
 > **The name is broad; the scope is narrow — on purpose.** This is *not* a runtime policy engine that authenticates, sandboxes, or kill-switches autonomous AI agents in production (the niche of Microsoft's [Agent Governance Toolkit](https://github.com/microsoft/agent-governance-toolkit), the OWASP Agentic Top 10, and similar). It governs the **codebase and the act of writing it**: catching the same *class* of structural bug *before it ships*, through CI linters that block (defensive) and pre-build agent skills that steer design (offensive). The "agent" here is the coding assistant you're *steering* — not an autonomous worker you're *policing*.
 
@@ -12,7 +12,7 @@ Defensive and offensive governance patterns harvested from a working production 
 
 A solo developer's project will accumulate the same class of bug three or four times before someone (or you, much later) writes down the pattern. Once written down, the pattern is short enough to copy into your next project — but only if it was written down at all.
 
-This repo is the externalised, business-neutral subset of one such codebase: the meta-layer governance that survived contact with real incidents. It's deliberately small (~seven concept docs + three `.mjs` templates + four agent skills) because the smallest useful version is the one that gets reused.
+This repo is the externalised, business-neutral subset of one such codebase: the meta-layer governance that survived contact with real incidents. It's deliberately small (~eight concept docs + three `.mjs` templates + four agent skills) because the smallest useful version is the one that gets reused.
 
 What is **not** here:
 
@@ -86,6 +86,7 @@ The agent reads [docs/onboarding-checklist.md](./docs/onboarding-checklist.md) a
 |---|---|
 | [defensive-vs-offensive-governance.md](./defensive-vs-offensive-governance.md) | The two modes of automated governance. Most teams have one. Few have both. |
 | [scaffold/concepts/forward-bias-and-the-reverse-organ.md](./scaffold/concepts/forward-bias-and-the-reverse-organ.md) | Both defensive *and* offensive governance are forward-triggered. Why solo-dev governance has no "step back" trigger, and the three-part reverse organ that adds one. |
+| [forcing-function-asymmetry.md](./forcing-function-asymmetry.md) | Sibling of the reverse organ on a different axis: forcing functions get built only for the *inward* family (correctness/safety) — never the *outward* one (reach/convert/revenue) — because outward failures leave no scar to harvest a rule from. The detect-it test (gate vs gauge) and the symmetric fix. |
 | [breakpoint-taxonomy.md](./breakpoint-taxonomy.md) | Types A–E. Classify a bug structurally before deciding how to fix it. |
 | [anti-patterns/spread-overwrites-ssot.md](./anti-patterns/spread-overwrites-ssot.md) | `{ ...obj, ssot_field: localVar }` and why your admin sees correct data while anon users don't. |
 | [anti-patterns/pg-function-overload-zombie.md](./anti-patterns/pg-function-overload-zombie.md) | `CREATE OR REPLACE FUNCTION` doesn't replace overloads. Why the signed link broke on Tuesday. |
