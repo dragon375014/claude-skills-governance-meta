@@ -240,6 +240,12 @@ The PR / issue policy is deliberately restrictive. See [CONTRIBUTING.md](./CONTR
 
 ---
 
+## 📮 The story behind this
+
+I'm a solo dev running a coffee brand who taught myself to build this toolchain with AI. I write up the reasoning (and the scars) at **[coffeeshooters.com/content](https://coffeeshooters.com/content)** — start with **["Dual-Graph Drift Detection for Solo Devs: What Happens When Your Docs and Your Code Start Talking to Each Other"](https://coffeeshooters.com/content/dual-graph-doc-code-drift-detection-en)**, the origin story of this repo's governance patterns (governance-guard + doc-graph + code-graph chained together). Two-week newsletter, no spam — subscribe on any article.
+
+---
+
 If anything in this repo saved you a debugging session, a ko-fi is appreciated but not expected. The patterns here are MIT and free to use unconditionally.
 
 [![ko-fi](https://ko-fi.com/img/githubbutton_sm.svg)](https://ko-fi.com/Z8C420A0VI)
