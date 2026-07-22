@@ -138,7 +138,7 @@ Trying to skip step 1 and jump to step 3 is the most common failure — offensiv
 
 - **Treating defensive and offensive as the same thing** — they have opposite tolerance for false positives, opposite cadences, opposite audiences
 - **Wiring offensive audits into CI as blockers** — first false positive will get the whole audit disabled
-- **Writing defensive rules without a failing test** — the rule's job is to fail on bad code; if you've never seen it fail, you don't know it works
+- **Writing defensive rules without a failing test** — the rule's job is to fail on bad code; if you've never seen it fail, you don't know it works. Full procedure (mutation-hardening D1–D7, prior art, reusable code): [`anti-patterns/checker-never-proven-to-fire.md`](anti-patterns/checker-never-proven-to-fire.md)
 - **No registry / index file** — defensive rules scattered across 6 files become unmaintainable; centralize in one `governance-guard.mjs` or one ESLint config
 - **Offensive audits that never get read** — establish a routing rule (which channel / which person / what cadence) before writing the audit
 
