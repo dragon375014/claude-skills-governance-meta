@@ -58,6 +58,16 @@ Cheapest wins to build now: <1–3 items>
 
 Don't over-crystallize. A script that's written once and never re-run is waste too. Only harvest pieces that will *actually recur*; for the rest, naming the irreducible core (so you don't re-pay for the shell) is enough. The smallest useful crystallization is the one that gets reused.
 
+## Closing gate: demand a consumer
+
+Crystallization is not done until the artifact has a consumer *at the right point in time*. Turn the consumer-witness question back on the crystallization itself: the rule / checklist row / guard / skill / script you just harvested — if nothing actually consumes it at the moment it's supposed to fire, it's decoration. You paid the harvest tokens once and nothing will ever call it. Before closing, clear three checks:
+
+1. **Name the consumer + its fire-point.** *Who* consumes this artifact, at *which* stage — design-time, commit-time, runtime, delivery-time? If you can't answer, it's decoration. Classic mismatch: a human-readable checklist row whose intended consumer is a design-time planner/decomposer, but it was only written to the prose list and never to the machine-readable mirror the planner actually reads — so at design-time it doesn't exist.
+2. **Sync the machine-readable twin.** If the artifact has a human-readable *and* a machine-readable form (checklist ↔ machine profile, rule ↔ lint/audit, skill ↔ trigger description), wire *both*. A human-only artifact is invisible to any automated/design-time consumer.
+3. **Forcing function.** Is there an audit / lint / test that lights up when this artifact becomes an orphan? If not, add the smallest one — and prove it fires (a `--selftest` that manufactures a violation and asserts red) before trusting it.
+
+> Do this *before* routing to a cheaper tier: dropping work to a cheap tier is worthless if nothing at that tier will ever invoke it.
+
 ## Related
 
 - [playbooks/cost-tier-routing.md](../../../playbooks/cost-tier-routing.md) — the full ladder + smell tests (this skill executes it)
